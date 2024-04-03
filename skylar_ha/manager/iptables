@@ -34,10 +34,10 @@ IPTABLES_RPM_TAR="yum_iptables.tar"
 prepare() {
     source $WORK_DIR/conf/ha.conf
 
-    if [ ! -f $WORK_DIR/dependent/$IPTABLES_RPM_TAR ]; then
-        echo "ERROR. No such file or directory: $WORK_DIR/dependent/$IPTABLES_RPM_TAR"
-        return 1
-    fi
+    #if [ ! -f $WORK_DIR/dependent/$IPTABLES_RPM_TAR ]; then
+    #    echo "ERROR. No such file or directory: $WORK_DIR/dependent/$IPTABLES_RPM_TAR"
+    #    return 1
+    #fi
 
     if ! disable_dhcp; then
         echo "ERROR. disable dhcp failed."
@@ -48,9 +48,9 @@ prepare() {
 
 
 install() {
-    $WORK_DIR/include/common check_install iptables-services
+    $WORK_DIR/include/common check_install iptables.service
     if [ $? -ne 0 ]; then 
-        yum install -y --disablerepo=\* --enablerepo=Iptables iptables-services; sleep 1
+        yum install -y iptables; sleep 1
     fi
 
     setenforce 0

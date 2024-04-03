@@ -50,12 +50,12 @@ prepare() {
 
 install_pacemaker() {
     echo "installing pacemaker, please wait a minute ..."
-    $WORK_DIR/include/common check_install pacemaker pcs psmisc policycoreutils
+    $WORK_DIR/include/common check_install pacemaker 
     if [ $? -ne 0 ]; then 
-        yum install -y --disablerepo=\* --enablerepo=Pacemaker pacemaker; sleep 2
-        yum install -y --disablerepo=\* --enablerepo=Pacemaker pcs; sleep 2
-        yum install -y --disablerepo=\* --enablerepo=Pacemaker psmisc; sleep 2
-        yum install -y --disablerepo=\* --enablerepo=Pacemaker policycoreutils-python; sleep 2
+        yum install -y pacemaker; sleep 2
+        #yum install -y --disablerepo=\* --enablerepo=Pacemaker pcs; sleep 2
+        #yum install -y --disablerepo=\* --enablerepo=Pacemaker psmisc; sleep 2
+        #yum install -y --disablerepo=\* --enablerepo=Pacemaker policycoreutils-python; sleep 2
     fi
 
     # remove old resource file. I have rewrited the 'pgsql' and 'docker'.
