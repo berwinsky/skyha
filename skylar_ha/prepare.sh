@@ -1,9 +1,9 @@
 #!/bin/sh
 
 yum -y update
-yum -y install docker-engine
+yum -y install docker-engine 
 
-yum -y install pacemaker
+yum -y install pacemaker pcs rsync
 
 
 docker pull schickling/beanstalkd:latest
