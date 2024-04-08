@@ -16,3 +16,7 @@ docker save -o ./dependent/skylar_redis.tar skylar_redis:latest
 docker pull postgres:14.7
 docker tag postgres:14.7 skylar_pg:latest
 docker save -o ./dependent/skylar_pg.tar skylar_pg:latest
+
+docker pull nginx:latest
+docker tag nginx:latest skylar_main:latest
+docker save -o ./dependent/skylar_main.tar skylar_main:latest
