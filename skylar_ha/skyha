@@ -69,7 +69,7 @@ prepare() {
 
     chmod +x $WORK_DIR/manager/* $WORK_DIR/resource/* $WORK_DIR/include/* $WORK_DIR/skyha
 
-    $WORK_DIR/include/common "create_repo"
+    #$WORK_DIR/include/common "create_repo"
 
     for file in $WORK_DIR/manager/* $WORK_DIR/resource/*
     do
