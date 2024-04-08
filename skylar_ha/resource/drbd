@@ -43,11 +43,11 @@ prepare() {
 install() {
     echo "installing drbd, please wait a minute ..."
 
-    $WORK_DIR/include/common check_install kmod-drbd84 drbd84-utils
-    if [ $? -ne 0 ]; then
-        yum install -y --disablerepo=\* --enablerepo=Drbd kmod-drbd84; sleep 2
-        yum install -y --disablerepo=\* --enablerepo=Drbd drbd84-utils;
-    fi 
+    $WORK_DIR/include/common check_install drbd-utils
+    #if [ $? -ne 0 ]; then
+    #    yum install -y --disablerepo=\* --enablerepo=Drbd kmod-drbd84; sleep 2
+    #    yum install -y --disablerepo=\* --enablerepo=Drbd drbd84-utils;
+    #fi 
 
     disk_master=""
     disk_slave=""
