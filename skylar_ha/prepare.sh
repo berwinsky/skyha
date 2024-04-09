@@ -2,7 +2,7 @@
 
 yum -y install docker-engine 
 
-yum -y install pacemaker pcs rsync
+yum -y install pacemaker pcs rsync drbd-utils
 
 
 docker pull schickling/beanstalkd:latest
