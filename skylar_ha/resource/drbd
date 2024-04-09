@@ -149,7 +149,7 @@ set_master() {
 
     echo "OK. Data status is uptodata."
 
-    mkfs.xfs /dev/drbd1
+    mkfs.xfs -f /dev/drbd1
 
     mkdir -p /drbd
     mount /dev/drbd1 /drbd
@@ -179,15 +179,15 @@ failover() {
     echo "config failover for drbd ..."
 
     echo "config drbd ..."
-    pcs -f resource_cfg resource create skydata ocf:linbit:drbd drbd_resource=skydata op monitor interval=30s
-    pcs -f resource_cfg resource master drbd-cluster skydata master-max=1 master-node-max=1 clone-max=2 clone-node-max=1 notify=true
+    pcs -f resource_cfg resource create skydata ocf:linbit:drbd drbd_resource=skydata op monitor interval=30s --force
+    pcs -f resource_cfg resource master drbd-cluster skydata master-max=1 master-node-max=1 clone-max=2 clone-node-max=1 notify=true --force
 
     sleep 2
     echo "config skyfs ..."
     if [ "$losetup_dev" != "" ]; then
-        pcs -f resource_cfg resource create skyfs Filesystem device="/dev/drbd1" directory="/drbd" fstype="xfs" options="noatime,nodiratime,noexec"
+        pcs -f resource_cfg resource create skyfs ocf:heartbeat:Filesystem device="/dev/drbd1" directory="/drbd" fstype="xfs" options="noatime,nodiratime,noexec" --force
     else
-        pcs -f resource_cfg resource create skyfs Filesystem device="/dev/drbd/by-res/skydata" directory="/drbd" fstype="xfs" options="noatime,nodiratime,noexec"
+        pcs -f resource_cfg resource create skyfs ocf:heartbeat:Filesystem device="/dev/drbd/by-res/skydata" directory="/drbd" fstype="xfs" options="noatime,nodiratime,noexec" --force
     fi
 }
 

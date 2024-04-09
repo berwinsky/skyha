@@ -133,9 +133,12 @@ failover() {
     systemctl enable pcsd.service
     sleep 5
 
-    pcs cluster auth -u hacluster -p hacluster $master_hostname $slave_hostname
-    pcs cluster setup --last_man_standing=1 --name skycluster $master_hostname $slave_hostname --force
+    cp /opt/skyha/skylar_ha/conf/corosync.conf /etc/corosync/corosync.conf
+    pcs host auth -u hacluster -p hacluster $master_hostname $slave_hostname
+    pcs cluster setup skylar $master_hostname $slave_hostname --force
     pcs cluster start --all
+    pcs cluster enable --all
+    pcs cluster status
 
     sleep 2
     master_corosync_run=`pcs status corosync | grep $master_hostname | grep -v grep | wc -l`
@@ -192,7 +195,7 @@ failover() {
     pcs -f resource_cfg resource defaults failure-timeout="10s"
 
     # 设置master节点虚ip
-    pcs -f resource_cfg resource create vip-master IPaddr2 ip="$vip_master" cidr_netmask="$cidr_netmask"\
+    pcs -f resource_cfg resource create vip-master ocf:heartbeat:IPaddr2 ip="$vip_master" cidr_netmask="$cidr_netmask"\
         op start   timeout="60s" interval="0s"  on-fail="restart"\
         op monitor timeout="60s" interval="5s"  on-fail="restart"\
         op stop    timeout="60s" interval="0s"  on-fail="block"

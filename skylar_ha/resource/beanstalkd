@@ -67,12 +67,12 @@ is_bstkd_run() {
 }
 
 failover() {
-    pcs -f resource_cfg resource create bstkd docker image=$BSTKD_IMAGE_NAME:latest \
+    pcs -f resource_cfg resource create bstkd systemd:docker image=$BSTKD_IMAGE_NAME:latest \
         run_opts="--net=host --privileged=true" name="$BSTKD_CONTAINER" \
         monitor_cmd="supervisorctl status beanstalkd | grep RUNNING" \
         op start timeout="60s" interval="0s" on-fail="restart" \
         op monitor timeout="60s" interval="10s" on-fail="restart" \
-        op stop timeout="60s" interval="0s" on-fail="block"
+        op stop timeout="60s" interval="0s" on-fail="block" --force
 
     return $?
 }
