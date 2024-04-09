@@ -123,18 +123,18 @@ install() {
 
 set_master() {
     sleep 2
-    cat /proc/drbd | grep 'cs:Connected' | grep 'ro:Secondary/Secondary'
-    if [ $? -ne 0 ]; then
-        echo "ERROR. drbd are not connected between master and slave."
-        return 1
-    fi
+    #cat /proc/drbd | grep 'cs:Connected' | grep 'ro:Secondary/Secondary'
+    #if [ $? -ne 0 ]; then
+    #    echo "ERROR. drbd are not connected between master and slave."
+    #    return 1
+    #fi
 
     drbdadm primary --force skydata
 
     try=0
     while [ $try -le 3600 ]
     do
-        cat /proc/drbd | grep 'cs:Connected' | grep 'ds:UpToDate/UpToDate' | grep 'Primary'
+        drbdadm status skydata | grep 'Primary'
         if [ $? -ne 0 ]; then
             [ "$losetup_dev" != "" ] && losetup $losetup_dev $drbd_dir/drbd.img
         else
@@ -166,7 +166,7 @@ set_master() {
     umount /dev/drbd1
     drbdadm secondary skydata
 
-    cat /proc/drbd | grep 'cs:Connected'
+    cat /proc/drbd
     if [ $? -ne 0 ]; then
         echo "ERROR. drbd are not connected between master and slave."
         return 1
@@ -256,7 +256,7 @@ solve_split_brain() {
     drbdadm up skydata
 
     sleep 5
-    cat /proc/drbd| grep 'Primary' | grep 'Secondary'
+    cat /proc/drbd
     if [ $? -eq 0 ]; then
         echo "OK. drbd master and slave are running."
         systemctl start pacemaker.service
