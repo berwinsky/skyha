@@ -52,6 +52,15 @@
 * git clone https://github.com/berwinsky/skyha.git
 * 上传rpmbuild.tar.gz、make install
 * cd /root/rpmbuild/BUILD/drbd-9.0.29-1 && make install
+
+* /opt/skyha/skylar_ha/skyha install \
+     master_ip=192.168.0.133 \
+     slave_ip=192.168.0.210 \
+     vip_master=192.168.0.3 \
+     data_dir=/data \
+     master_hostname=node1 \
+     slave_hostname=node2 \
+     drbd_size=1000
   
 ### 1. 环境准备
 
