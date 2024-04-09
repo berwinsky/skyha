@@ -36,24 +36,24 @@
 
 ## 一、安装步骤
 -------
+* Master:
+* ssh-keygen -t rsa
+* scp /root/.ssh/id_rsa.pub root@192.168.0.210:/root/.ssh/authorized_keys
+* yum -y install lrzsz git
+* cd /opt
+* git clone git@github.com:berwinsky/skyha.git
+* 上传rpmbuild.tar.gz、make install
+* cd /root/rpmbuild/BUILD/drbd-9.0.29-1 && make install 
 
+* Slave:
+* ssh-keygen -t rsa
+* scp /root/.ssh/id_rsa.pub root@192.168.0.133:/root/.ssh/authorized_keys
+* yum -y install lrzsz git
+* git clone https://github.com/berwinsky/skyha.git
+* 上传rpmbuild.tar.gz、make install
+* cd /root/rpmbuild/BUILD/drbd-9.0.29-1 && make install
+  
 ### 1. 环境准备
-Master:
-ssh-keygen -t rsa
-scp /root/.ssh/id_rsa.pub root@192.168.0.210:/root/.ssh/authorized_keys
-yum -y install lrzsz git
-cd /opt
-git clone git@github.com:berwinsky/skyha.git
-上传rpmbuild.tar.gz、make install
-cd /root/rpmbuild/BUILD/drbd-9.0.29-1 && make install 
-
-Slave:
-ssh-keygen -t rsa
-scp /root/.ssh/id_rsa.pub root@192.168.0.133:/root/.ssh/authorized_keys
-yum -y install lrzsz git
-git clone https://github.com/berwinsky/skyha.git
-上传rpmbuild.tar.gz、make install
-cd /root/rpmbuild/BUILD/drbd-9.0.29-1 && make install 
 
 1. 备份数据。将主机上的数据文件做好备份。CentOS7.2主机，已安装docker 1.9以上版本。本例中master ip为192.168.142.171，slave ip为192.168.142.172
 
