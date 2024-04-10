@@ -35,6 +35,25 @@
 * nfs用于共享数据
 
 ## 一、安装步骤
+* yum -y install git
+* yum -y install pcs
+* yum -y install rsync
+* yum -y install rsync
+* yum -y install drbd-utils
+* yum -y install keyutils
+* yum -y install keyutils
+* yum -y install keyutils-devel
+* yum -y install libudev-dev, libudev-devel
+* yum -y install gcc-c++ po4a
+* yum -y install aclocal
+* yum -y install automake
+* yum -y install heartbeat 
+* yum -y install 
+* yum -y install asciidoctor
+* yum -y install docbook-style-xsl
+* yum -y install docbook-style-xsl keyutils-libs-devel perl-generators po4a rubygem-asciidoctor install flex gcc-c++
+* yum -y install elfutils-libelf-devel kernel-rpm-macros
+* 
 -------
 * Master:
 * ssh-keygen -t rsa
